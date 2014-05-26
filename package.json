@@ -1,0 +1,21 @@
+{
+  "name":"piercer",
+  "version": "1.0.0",
+  "description": "Very simple injection module",
+  "keywords":["injection","proxy"],
+  "author": {
+    "name": "Enric Cecilla",
+    "email": "ececilla@gmail.com"
+  },
+  "license":"MIT",
+  "repository":{
+    "type":"git",
+    "url":"http://github.com/ececilla/piercer.git"
+  },
+  "homepage": "https://github.com/ececilla/piercer",
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },  
+  "main": "lib/proxy.js"
+}
