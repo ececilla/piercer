@@ -14,7 +14,7 @@ var mymodule  = {
 	}
 };
 
-piercer.addPluginSync("log",function(str){
+piercer.add_proxy_sync("log",function(str){
 	console.log("proxy function");
 });
 
@@ -41,7 +41,7 @@ var mymodule  = {
 	}
 };
 
-piercer.addPluginAsync("log",function(str,next){
+piercer.add_proxy_async("log",function(str,next){
 	console.log("proxy function");
 	setTimeout(next,2000);
 });
@@ -60,7 +60,7 @@ var piercer = require("piercer");
 var Notification = require("node-notifier");
 var notifier = new Notification();
 
-piercer.addPluginSync("notify",function(str){
+piercer.add_proxy_sync("notify",function(str){
 	console.log("proxy function");
 });
 
