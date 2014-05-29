@@ -11,7 +11,7 @@ exports['piercer'] = {
     piercer.clear();    
     done();
   },
-  "addPluginSync no params": function(test){
+  "add_proxy_sync no params": function(test){
     
     var start, end;
     var mod = { dummy:function(param){
@@ -19,7 +19,7 @@ exports['piercer'] = {
       end = 1;      
     }};
 
-    piercer.addPluginSync("dummy",function(param){
+    piercer.add_proxy_sync("dummy",function(param){
       test.equal(undefined, param);
       start = 1;
     });
@@ -31,14 +31,14 @@ exports['piercer'] = {
     test.expect(4);        
     test.done();
   },
-  "addPluginSync 1 param": function(test) {
+  "add_proxy_sync 1 param": function(test) {
     
     var start, end;
     var mod = { dummy:function(param){
       test.equal("foo", param);
       end = 1;
     }};
-    piercer.addPluginSync("dummy",function(param){
+    piercer.add_proxy_sync("dummy",function(param){
       test.equal("foo", param);
       start = 1;
     });
@@ -50,7 +50,7 @@ exports['piercer'] = {
     test.expect(4);        
     test.done();
   }, 
-  "addPluginSync 2 params": function(test) {
+  "add_proxy_sync 2 params": function(test) {
     
     var start, end;
     var mod = { dummy:function(param1, param2){
@@ -59,13 +59,13 @@ exports['piercer'] = {
       test.deepEqual(["bar"], param2);
       end = 1;
     }};
-    piercer.addPluginSync("dummy",function(param1, param2){
+    piercer.add_proxy_sync("dummy",function(param1, param2){
       
       test.equal("foo", param1);
       test.deepEqual(["bar"], param2);
       start = 1;
     });
-    piercer.addPluginSync("dummy",function(param1, param2){
+    piercer.add_proxy_sync("dummy",function(param1, param2){
       
       test.equal("foo", param1);
       test.deepEqual(["bar"], param2);
@@ -79,7 +79,7 @@ exports['piercer'] = {
     test.expect(8);        
     test.done();
   },
-  "addPluginAsync no params": function(test) {
+  "add_proxy_async no params": function(test) {
     
     var start;
     var mod = { dummy:function(param){
@@ -90,7 +90,7 @@ exports['piercer'] = {
       test.done();
     }};
 
-    piercer.addPluginAsync("dummy",function(next){      
+    piercer.add_proxy_async("dummy",function(next){      
       start = 1;
       setTimeout(next,1000);
     });
@@ -98,7 +98,7 @@ exports['piercer'] = {
     
     mod.dummy();        
   },
-  "addPluginAsync 1 param": function(test) {
+  "add_proxy_async 1 param": function(test) {
     
     var start;
     var mod = { dummy:function(param){
@@ -109,7 +109,7 @@ exports['piercer'] = {
       test.done();  
     }};
 
-    piercer.addPluginAsync("dummy",function(param,next){      
+    piercer.add_proxy_async("dummy",function(param,next){      
             
       test.equal("foo", param);
       start = 1;      
