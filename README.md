@@ -1,9 +1,7 @@
 [![Build Status](https://secure.travis-ci.org/ececilla/piercer.png)](http://travis-ci.org/ececilla/piercer)
 [![NPM version](https://badge.fury.io/js/piercer.svg)](http://badge.fury.io/js/piercer)
 
-===
-
-Piercer: Function proxy injection 
+#Piercer: Function proxy injection #
 
 ===
 
