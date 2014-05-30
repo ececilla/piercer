@@ -3,8 +3,6 @@
 
 #Piercer: Function proxy injection #
 
-===
-
 Piercer is a simple but powerful module to inject both synchronous and asynchronous functions into a target function. Let's see an example:
 
 
