@@ -1,6 +1,6 @@
 {
   "name":"piercer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Function proxy injection module",
   "homepage": "https://github.com/ececilla/piercer",
   "keywords":["injection","function","proxy"],
