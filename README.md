@@ -22,7 +22,7 @@ piercer.inject(mymodule);
 mymodule.log("foobar");
 
 ```
-Whats gets printed is:
+What gets printed is:
     
     proxy function
     foobar
@@ -51,6 +51,24 @@ mymodule.log("foobar");
 
 ```
 Asynchronous proxies are passed the same parameters as in the function call plus the next function. So, if you expect your target function to have 3 parameters (x,y,z) then your proxy function must be defined with 4 parameters (x,y,z,next).
+
+An error can be returned as a parameter of the next function. When invoked in this way the final target function won't be called but *piercer* will call the error handler if it was installed.
+
+```
+
+piercer.add_proxy_err("log",function(err){
+
+    console.log(err);
+});
+
+piercer.add_proxy_async("log",function(str,next){
+	console.log("proxy function");
+	setTimeout(function(){
+	   next("this is an error");
+	},2000);
+});
+
+```
 
 Let's see piercer with a real module in action.
 
