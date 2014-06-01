@@ -29,9 +29,33 @@ What gets printed is:
     proxy function
     foobar
 
-Synchronous proxy functions are passed the very same parameters as in the function call. In the example above, the parameter "foobar". 
+Synchronous proxy functions are passed the very same parameters as in the function call. In the example above, the parameter "foobar". More than one proxy can be added to the target function with the order of execution keeping equal as the order of installation.
+
+```
+
+var piercer = require("piercer");
+var mymodule  = {
+
+	log:function(str){		
+		console.log(str);
+	}
+};
+
+piercer.add_proxy_sync("log",function(str){
+	console.log("first proxy function");
+});
+
+piercer.add_proxy_sync("log",function(str){
+	console.log("second proxy function");
+});
+
+piercer.inject(mymodule);
+
+
+```
 
 Following you can find the same example executed asynchronously.
+
 
 ```
 
@@ -52,7 +76,7 @@ piercer.inject(mymodule);
 mymodule.log("foobar");
 
 ```
-Asynchronous proxies are passed the same parameters as in the function call plus the next function. So, if you expect your target function to have 3 parameters (x,y,z) then your proxy function must be defined with 4 parameters (x,y,z,next).
+Asynchronous proxies are passed the same parameters as in the function call plus the next function. So, if you expect your target function to have 3 parameters (x,y,z) then your proxy function must be defined with 4 parameters (x,y,z,next). Both synchronous and asynchronous proxies can be installed on the same target function being executed serially.
 
 An error can be returned as a parameter of the next function. When invoked in this way the final target function won't be called but *piercer* will call the error handler if it was installed.
 
@@ -69,6 +93,30 @@ piercer.add_proxy_async("log",function(str,next){
 	   next("this is an error");
 	},2000);
 });
+
+```
+
+Once installed a proxy can be uninstalled calling *piercer.uninject(module, proc_name)* or *piercer.uninject(module)*.
+
+
+```
+
+var piercer = require("piercer");
+var mymodule  = {
+
+	log:function(str){		
+		console.log(str);
+	}
+};
+
+piercer.add_proxy_async("log",function(str,next){
+	console.log("proxy function");
+	setTimeout(next,2000);
+});
+
+piercer.inject(mymodule);
+piercer.uninject(mymodule,"log");
+
 
 ```
 
