@@ -8,8 +8,32 @@ exports['piercer'] = {
     done();
   },
   tearDown:function(done){
-    piercer.clear();    
+    piercer.clear();
     done();
+  },
+    "inject 2 modules": function(test){
+        
+    var mod = { 
+      dummy:function(param){
+                
+      }
+    },
+    mod2 = {
+      dummy:function(){
+
+      }
+    }
+
+    piercer.add_proxy_sync("dummy",function(param){
+            
+    });
+        
+    piercer.inject(mod);
+    test.throws(function(){
+      piercer.inject(mod2);  
+    });
+              
+    test.done();
   },
   "add_proxy_sync no params": function(test){
     
@@ -147,7 +171,7 @@ exports['piercer'] = {
     test.expect(6);        
     test.done();
   },
-   "uninject": function(test){
+  "uninject": function(test){
     
     var start_dummy, start_foo, end_dummy, end_foo;
     var mod = { 
@@ -175,6 +199,42 @@ exports['piercer'] = {
     
     piercer.inject(mod);
     piercer.uninject(mod);
+
+    mod.dummy();
+    mod.foo();
+
+    test.equal(undefined, start_dummy);
+    test.equal(undefined, start_foo);    
+    test.ok(end_dummy);
+    test.ok(end_foo);
+    test.expect(6);        
+    test.done();
+  },
+  "clear": function(test){
+    
+    var start_dummy, start_foo, end_dummy, end_foo;
+    var mod = { 
+      dummy:function(param){
+        test.equal(undefined, param);
+        end_dummy = 1;      
+      },
+      foo:function(param){
+        test.equal(undefined,param);
+        end_foo = 1;
+      }
+    };
+
+    piercer.add_proxy_sync("dummy",function(param){
+      
+      start_dummy = 1;
+    });
+
+    piercer.add_proxy_sync("foo",function(param){
+      start_foo = 1;
+    });    
+    
+    piercer.inject(mod);
+    piercer.clear();
 
     mod.dummy();
     mod.foo();
